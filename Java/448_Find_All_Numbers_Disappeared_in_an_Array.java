@@ -21,17 +21,18 @@ Output:
 
 class Solution {
     public List<Integer> findDisappearedNumbers(int[] nums) {
+        int n = nums.length;
     	List<Integer> res = new ArrayList<Integer>();
     	if (nums.length == 0)	return res;
 
     	// [4, 3, 2, 7, 8, 2, 3, 1] -> [-4, -3, -2, -7, 8, 2, -3, -1]
-    	for (int i = 0; i < nums.length; i++) {
+    	for (int i = 0; i < n; i++) {
     		int idx = Math.abs(nums[i]) - 1;
     		nums[idx] = (nums[idx] > 0) ? -nums[idx] : nums[idx];
     	}
 
     	// to see which nums[idx] is positive
-    	for (int i = 0; i < nums.length; i++) {
+    	for (int i = 0; i < n; i++) {
     		if (nums[i] > 0)	return res.add(i + 1);
     	}
 

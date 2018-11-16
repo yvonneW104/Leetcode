@@ -12,6 +12,9 @@ Explanation: n is 2, and the maximum sum of pairs is 4 = min(1, 2) + min(3, 4).
 
 */
 
+/*Method 1
+Using sort: O(n log n)
+*/
 class Solution {
     public int arrayPairSum(int[] nums) {
         Arrays.sort(nums);
@@ -22,3 +25,24 @@ class Solution {
         return sum;
     }
 }
+
+/*Method 2
+Using extra array: O(n)
+Map the numbers in the range -10000 <= i <= -1 onto the hashmap.
+
+link: https://leetcode.com/problems/array-partition-i/solution/
+*/
+class Solution {
+    public int arrayPairSum(int[] nums) {
+        int[] new_arr = new int[20001];
+        int limit = 10000;
+        for (int num: nums)
+            new_arr[num + limit]++;
+        
+        int sum = 0, flag = 0;
+        for (int i = -10000; i <= 10000; i++) {
+            sum += (new_arr[i + 10000] + 1 - flag) / 2 * i;
+            flag = (2 + new_arr[i + limit] - flag) % 2;
+        }
+        return sum;
+    }

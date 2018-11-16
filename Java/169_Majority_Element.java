@@ -16,6 +16,21 @@ Output: 2
 
 */
 
+// Sort array: ~70%
+class Solution {
+    public int majorityElement(int[] nums) {
+        int len = nums.length;
+        if(len == 1) return nums[0];
+        Arrays.sort(nums);
+        
+        if((len % 2 == 0) && (nums[0] == nums[len/2 - 1]))
+            return nums[0];
+        
+        return nums[len/2];
+    }
+}
+
+// Hashmap: ~35%
 class Solution {
     public int majorityElement(int[] nums) {
         if (nums.length <= 2)    return nums[0];
@@ -23,8 +38,9 @@ class Solution {
         Map<Integer, Integer> map = new HashMap<Integer, Integer>();
         for (int i = 0; i < nums.length; i++) {
             if (map.containsKey(nums[i])) {
-                map.put(nums[i], map.get(nums[i])+1);
-                if (map.get(nums[i]) >= (n+1)/2)    return nums[i];
+                int count = map.get(nums[i]) + 1;
+                map.put(nums[i], count);
+                if (count >= (n+1)/2)    return nums[i];
             } else {
                 map.put(nums[i], 1);
             }
